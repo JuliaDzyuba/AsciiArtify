@@ -70,7 +70,8 @@ $ kubectl port-forward svc/argocd-server -n argocd 8080:443&
 # Obtaining a password to access the ArgoCD GUI interface
 $ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo 
 
-# open ArgoCD GUI https://127.0.0.1:8080/
-![ArgoCD Admin Panel](argo_admin.png)
+
 
 ```
+### open ArgoCD GUI https://127.0.0.1:8080/
+![ArgoCD Admin Panel](argo_admin.png)
