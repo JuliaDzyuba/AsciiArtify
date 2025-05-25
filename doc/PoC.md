@@ -34,3 +34,43 @@ This PoC will validate the feasibility of automating deployment through a Kubern
 
 ### **Demo**
 Demo link [![Demo link](https://asciinema.org/a/baDRqKgEsHDIwiXXzASPuzshc)](https://asciinema.org/a/baDRqKgEsHDIwiXXzASPuzshc)
+```
+# create new local cluster
+$ k3d cluster create argo
+
+$ kubectl cluster-info
+Kubernetes control plane is running at https://0.0.0.0:42115
+CoreDNS is running at https://0.0.0.0:42115/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Metrics-server is running at https://0.0.0.0:42115/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy
+
+$ kubectl version
+$ kubectl get all -A
+
+# create new namespace argocd
+$ kubectl create namespace argocd
+namespace/argocd created
+
+$ kubectl get ns
+NAME              STATUS   AGE
+argocd            Active   24s
+default           Active   2m36s
+kube-node-lease   Active   2m36s
+kube-public       Active   2m36s
+kube-system       Active   2m36s"
+
+# install ArgoCD
+$ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# check containers status
+$ kubectl get all -n argocd
+
+# set up port forwarding from local port 8080 to remote 443
+$ kubectl port-forward svc/argocd-server -n argocd 8080:443&
+
+# Obtaining a password to access the ArgoCD GUI interface
+$ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo 
+
+# open ArgoCD GUI https://127.0.0.1:8080/
+![ArgoCD Admin Panel](argo_admin.png)
+
+```
