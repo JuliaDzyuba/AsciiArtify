@@ -74,4 +74,4 @@ $ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.p
 
 ```
 ### open ArgoCD GUI https://127.0.0.1:8080/
-![ArgoCD Admin Panel](argo_admin.png)
+![ArgoCD Admin Panel](argo_admin.PNG)
